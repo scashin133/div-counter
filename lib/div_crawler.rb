@@ -40,7 +40,7 @@ class DivCrawler
 
   def count_divs (uri, referer, response)
 
-    if (!response.nil? && response["Content-Type"].include?("text/html") && (response.code == "200" || response.code == "302"))
+    if (!response.nil? && (response["Content-Type"].nil? || response["Content-Type"].include?("text/html")) && (response.code == "200" || response.code == "302"))
       hpricot_body = Hpricot(response.body)
       divs = (hpricot_body/"div")
       title = (hpricot_body/"title").inner_html

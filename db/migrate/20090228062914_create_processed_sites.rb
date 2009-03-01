@@ -3,7 +3,7 @@ class CreateProcessedSites < ActiveRecord::Migration
     create_table(:processed_sites) do |t|
       t.integer :div_count
       t.string :uri
-      t.binary :compressed_body
+      t.column :compressed_body, :mediumblob
       t.string :title
 
       t.timestamps

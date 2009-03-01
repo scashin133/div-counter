@@ -1,0 +1,10 @@
+%h1 Badges
+
+%p
+  Create a badge for a site we have crawled.  If we have not crawled it yet you can still add it and it will be updated as soon as the site is.
+  
+-form_tag badges_path do
+  %label_tag :uri, "The URL of the site:"
+  =text_field_tag(:uri)
+  =submit_tag "Create"
+  

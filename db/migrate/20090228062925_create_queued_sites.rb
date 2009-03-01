@@ -3,7 +3,7 @@ class CreateQueuedSites < ActiveRecord::Migration
 	  create_table(:queued_sites) do |t|
 	    t.string :state
 	    t.string :uri
-	    
+	    t.boolean :user_flag, :default => false
 	    t.timestamps
     end
     

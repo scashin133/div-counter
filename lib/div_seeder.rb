@@ -8,11 +8,11 @@ class DivSeeder
 
     while(running)
 
-      service.classify.constantize.get_next_page().each do |anchor|
+      service.constantize.get_next_page().each do |anchor|
         QueuedSite.create(:uri => anchor.attributes["href"], :state => "waiting")
       end
 
-      puts service.classify.constantize.get_status()
+      puts service.constantize.get_status()
 
       sleep(1)
 
@@ -54,7 +54,7 @@ class StumbleUpon
     
     tag_page = (Hpricot(get(current_tag)))
     
-    if((tag_page/"ul.listpagination").empty?)
+    if((tag_page/"ul.listPagination").empty?)
       
       @@next_tag_page = ""
       @@current_tag_index += 1
@@ -76,14 +76,18 @@ class StumbleUpon
       
             
     end
+
+    return (tag_page/"dl.dlGrid dt.textDisabled a")
     
-    return (tag_page/"dl.dlList dt a")
-    
+  end
+  
+  def self.get_status()
+    puts "Tag: #{@@tags[@@current_tag_index]} Page: #{@@next_tag_page.to_s}"
   end
   
   private
   
-  def initialize_tags()
+  def self.initialize_tags()
     if @@tags.blank?
       ((Hpricot(get("/tag")))/"div.tagcloud ul li a").each do |tag|
         @@tags << tag.attributes["href"]

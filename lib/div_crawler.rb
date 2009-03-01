@@ -1,9 +1,14 @@
 require 'hawler'
 require 'hawleroptions'
+require 'mysql'
 
 class DivCrawler
-
-  def self.run()
+  
+  def initialize()
+    
+  end
+  
+  def run()
     while(QueuedSite.has_more_sites?)
 
       qs = QueuedSite.dequeue()
@@ -33,15 +38,14 @@ class DivCrawler
 
   end
 
-  private  
-
   def count_divs (uri, referer, response)
 
-    if (!response.nil? && response["Content-Type"].include?("text/html") && (response.code == 200 || response.code == 302))
+    if (!response.nil? && response["Content-Type"].include?("text/html") && (response.code == "200" || response.code == "302"))
       hpricot_body = Hpricot(response.body)
       divs = (hpricot_body/"div")
       title = (hpricot_body/"title").inner_html
-      ProcessedSite.connection.insert("INSERT INTO processed_sites (div_count,uri,body,title) VALUES (#{divs.size},#{uri.to_s},COMPRESS(#{response.body}),#{title})")
+      
+      ProcessedSite.connection.insert("INSERT INTO processed_sites (div_count,uri,compressed_body,title) VALUES (#{Mysql.quote(divs.size.to_s)},'#{Mysql.quote(uri.to_s)}',COMPRESS('#{Mysql.quote(response.body.to_s)}'),'#{Mysql.quote(title.to_s)}')")
     end
     
   end

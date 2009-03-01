@@ -1,0 +1,49 @@
+# $Id: README 16 2008-03-23 06:02:07Z warchild $
+
+Hawler, the ruby HTTP crawler.
+
+Written to ease satisfying curiousities about the way the web is woven.  
+
+Install by:
+
+  gem install --source http://spoofed.org/files/hawler/ hawler 
+
+Rough usage is... define a method that will take a URI, a referer, and an
+Net::HTTPResponse as arguments, and then does whatever it wants.  Create
+a Hawler object, passing the start URI and the above method as arguments.
+Set Hawler options, then start it.
+
+Basic usage is an implementation of htgrep:
+
+  #!/usr/bin/ruby
+
+  require 'rubygems'
+  require 'hawler'
+  require 'hawleroptions'
+
+  def grep (uri, referer, response)
+    line = 0
+    unless (response.nil?)
+      response.body.each do |l|
+        line += 1
+        if (l =~ /#{@match}/)
+          puts "#{uri}:#{line} #{l}"
+        end
+      end
+    end
+  end
+
+  options = HawlerOptions.parse(ARGV, "Usage: #{File.basename $0} [pattern] [uri] [options]")
+
+  if (ARGV.empty?)
+    puts @options.help
+  else
+    @match = ARGV.shift
+    ARGV.each do |site|
+      crawler = Hawler.new(site, method(:grep))
+      options.each_pair do |o,v|
+        crawler.send("#{o}=",v)
+      end
+      crawler.start
+    end
+  end

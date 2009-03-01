@@ -1,0 +1,76 @@
+--- !ruby/object:Gem::Specification 
+name: hawler
+version: !ruby/object:Gem::Version 
+  version: "0.3"
+platform: ruby
+authors: 
+- Jon Hart
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-01-24 00:00:00 -08:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: hpricot
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: "0"
+    version: 
+description: 
+email: jhart@spoofed.org
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README
+files: 
+- lib/hawleroptions.rb
+- lib/hawler.rb
+- lib/hawlerhelper.rb
+- lib/hawlee.rb
+- test/ts_all.rb
+- test/ts_hawler.rb
+- test/ts_hawlerhelper.rb
+- test/ts_hawlee.rb
+- README
+has_rdoc: true
+homepage: http://spoofed.org/files/hawler/
+post_install_message: 
+rdoc_options: 
+- -p
+- -m
+- README
+- -W http://spoofed.org/files/hawler/%s
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 2
+summary: Hawler, the HTTP crawler.  For the hax.
+test_files: 
+- test/ts_all.rb
+- test/ts_hawler.rb
+- test/ts_hawlerhelper.rb
+- test/ts_hawlee.rb

@@ -2,7 +2,7 @@ namespace :background do
 
   task :crawler => :environment do
     
-    DivCrawler.run()
+    DivCrawler.new().run()
     
   end
   

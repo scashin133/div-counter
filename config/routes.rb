@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :badges
+
   map.resources :processed_sites
   map.resources :queued_sites
 

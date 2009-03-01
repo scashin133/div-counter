@@ -1,8 +1,9 @@
 namespace :background do
 
   task :crawler => :environment do
-    
-    DivCrawler.new().run()
+    Process.fork do
+      DivCrawler.new().run()
+    end
     
   end
   
@@ -13,8 +14,9 @@ namespace :background do
     if service.empty?
       service = nil
     end
-    
-    DivSeeder.run(service)
+    Process.fork do
+      DivSeeder.run(service)
+    end
     
   end
   

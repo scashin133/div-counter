@@ -1,0 +1,17 @@
+%h1="#{link_to(@uri, @uri)} at a glance"
+
+%h2 General Info
+%p 
+  Processed
+  =pluralize(@processed_sites.size, "times")
+  
+%h2 Over Time
+
+-@processed_sites.each do |processed_site|
+  %div
+    %p
+      %strong Pulled on:
+      =processed_site.created_at
+    %p
+      %strong Div count:
+      =processed_site.div_count

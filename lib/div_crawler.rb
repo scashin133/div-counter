@@ -5,7 +5,7 @@ require 'mysql'
 class DivCrawler
   
   def initialize()
-    
+    @logger = Logger.new(File.join(RAILS_ROOT, "log", "crawler.log"))
   end
   
   def run()
@@ -14,7 +14,7 @@ class DivCrawler
       qs = QueuedSite.dequeue()
 
       begin
-        options = HawlerOptions.parse(["-f", "-r", "1", "-v"], "Usage: #{File.basename $0} [uri] [options]")
+        options = HawlerOptions.parse(["-f", "-r", "1"], "Usage: #{File.basename $0} [uri] [options]")
 
         crawler = Hawler.new(qs.uri, method(:count_divs))
 
@@ -26,9 +26,9 @@ class DivCrawler
 
       rescue Exception => e
 
-        puts "#{qs.uri} failed"
-        puts e
-        puts e.backtrace.join("\n")
+        logger.error "#{qs.uri} failed"
+        logger.error e
+        logger.error e.backtrace.join("\n")
 
       end
 
@@ -45,7 +45,7 @@ class DivCrawler
       divs = (hpricot_body/"div")
       title = (hpricot_body/"title").inner_html
       
-      ProcessedSite.connection.insert("INSERT INTO processed_sites (div_count,uri,compressed_body,title) VALUES (#{Mysql.quote(divs.size.to_s)},'#{Mysql.quote(uri.to_s)}',COMPRESS('#{Mysql.quote(response.body.to_s)}'),'#{Mysql.quote(title.to_s)}')")
+      ProcessedSite.connection.insert("INSERT INTO processed_sites (div_count,uri,compressed_body,title,created_at,updated_at) VALUES (#{Mysql.quote(divs.size.to_s)},'#{Mysql.quote(uri.to_s)}',COMPRESS('#{Mysql.quote(response.body.to_s)}'),'#{Mysql.quote(title.to_s)}',UTC_TIMESTAMP(),UTC_TIMESTAMP())")
     end
     
   end

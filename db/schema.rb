@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090228201159) do
+ActiveRecord::Schema.define(:version => 20090301232734) do
 
   create_table "processed_sites", :force => true do |t|
     t.integer  "div_count"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20090228201159) do
   end
 
   add_index "processed_sites", ["div_count"], :name => "index_processed_sites_on_div_count"
+  add_index "processed_sites", ["uri"], :name => "index_processed_sites_on_uri"
 
   create_table "queued_sites", :force => true do |t|
     t.string   "state"
@@ -31,5 +32,6 @@ ActiveRecord::Schema.define(:version => 20090228201159) do
   end
 
   add_index "queued_sites", ["state"], :name => "index_queued_sites_on_state"
+  add_index "queued_sites", ["uri"], :name => "index_queued_sites_on_uri"
 
 end

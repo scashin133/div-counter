@@ -5,14 +5,14 @@ class DivSeeder
   
   def self.run(service = "Delicious")
     running = true
-
+    logger = Logger.new(File.join(RAILS_ROOT, "log", "#{service}_seeder.log"))
     while(running)
 
       service.constantize.get_next_page().each do |anchor|
         QueuedSite.create(:uri => anchor.attributes["href"], :state => "waiting")
       end
 
-      puts service.constantize.get_status()
+      logger.info service.constantize.get_status()
 
       sleep(1)
 
@@ -82,7 +82,7 @@ class StumbleUpon
   end
   
   def self.get_status()
-    puts "Tag: #{@@tags[@@current_tag_index]} Page: #{@@next_tag_page.to_s}"
+    return "Tag: #{@@tags[@@current_tag_index]} Page: #{@@next_tag_page.to_s}"
   end
   
   private

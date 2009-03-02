@@ -18,6 +18,7 @@ class ProcessedSitesController < ApplicationController
       
       if queued_site.new_record?
         queued_site.state = "waiting"
+        queued_site.user_flag = true
         queued_site.save
       end
       

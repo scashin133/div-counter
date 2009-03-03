@@ -26,9 +26,9 @@ class DivCrawler
 
       rescue Exception => e
 
-        logger.error "#{qs.uri} failed"
-        logger.error e
-        logger.error e.backtrace.join("\n")
+        @logger.error "#{qs.uri} failed"
+        @logger.error e
+        @logger.error e.backtrace.join("\n")
 
       end
 

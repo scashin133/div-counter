@@ -14,7 +14,7 @@
     =text_field_tag :uri, nil, :size => 60
     =submit_tag "Check"
 
-%h2 Top 20
+%h2="Top 20 of #{@total_processed_sites}"
 %ol
   -@processed_sites.each do |processed_site|
     %li

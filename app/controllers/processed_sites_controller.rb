@@ -3,7 +3,8 @@ class ProcessedSitesController < ApplicationController
   # GET /processed_sites.xml
   def index
     @processed_sites = ProcessedSite.find(:all, :limit => 20, :order => "div_count DESC")
-
+    @total_processed_sites = ProcessedSite.count(:all)
+    
     respond_to do |format|
       format.html # index.html.haml
       format.xml  { render :xml => @processed_sites }

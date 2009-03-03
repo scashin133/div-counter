@@ -26,6 +26,7 @@ set :mongrel_conf, "/home/shawnis/etc/mongrel_conf.yml"
 set :project_current_path, "/home/shawnis/apps/personal"
 
 after "deploy:update_code", "deploy:copy_config_files"
+after "deploy:update_code", "deploy:chmod_public_folder"
 
 namespace :deploy do
   desc <<-DESC
@@ -38,4 +39,11 @@ namespace :deploy do
     run "cp -R #{shared_path}/config/* #{latest_release}/config/; true"
   end
   
+  desc <<-DESC
+  CHMODS the public colder since it has to be 755 and it just refuses to stay that way
+  DESC
+  
+  task :chmod_public_folder, :roles => [:app] do
+    run "chmod 755 #{latest_release}/public #{latest_release}/public/*; true"
+  end
 end

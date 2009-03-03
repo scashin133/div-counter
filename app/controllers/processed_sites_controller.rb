@@ -8,6 +8,7 @@ class ProcessedSitesController < ApplicationController
     respond_to do |format|
       format.html # index.html.haml
       format.xml  { render :xml => @processed_sites }
+      format.js {render :partial => "processed_site_list", :locals => {:total_processed_sites => @total_processed_sites, :processed_sites => @processed_sites}}
     end
   end
   

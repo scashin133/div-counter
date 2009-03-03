@@ -1,0 +1,8 @@
+%h2
+  Top 20 of
+  =total_processed_sites
+%ol
+  -processed_sites.each do |processed_site|
+    %li
+      =pluralize(processed_site.div_count, "DIV", "DIVS")
+      =link_to("#{processed_site.title.blank? ? "No Title" : processed_site.title} - #{processed_site.uri}", processed_site.uri, :target => "_blank")

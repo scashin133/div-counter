@@ -1,5 +1,5 @@
 namespace :background do
-
+  desc "Crawler to run in the background"
   task :crawler => :environment do
     logger = Logger.new(File.join(RAILS_ROOT, "log", "crawler_rake.log"))
     
@@ -36,6 +36,7 @@ namespace :background do
     
   end
   
+  desc "Start the seeder in the background"
   task :seeder => :environment do
     
     service = ENV["SERVICE"]

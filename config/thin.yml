@@ -1,0 +1,15 @@
+--- 
+pid: tmp/pids/thin.pid
+adapter: rails
+log: log/thin.log
+timeout: 30
+max_conns: 1024
+port: 3000
+environment: development
+max_persistent_conns: 512
+debug: true
+trace: true
+require: []
+
+threaded: true
+address: 0.0.0.0
